@@ -14,17 +14,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/userdb", { useNewUrlParser: true });
-
-// app.post("/submit", ({ body }, res) => {
-//     User.create(body)
-//         .then(dbUser => {
-//             res.json(dbUser);
-//         })
-//         .catch(err => {
-//             res.json(err);
-//         });
-// });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
 app.get('/exercise', function(req, res) {
     res.sendFile(__dirname + '/public/exercise.html');
@@ -32,6 +22,8 @@ app.get('/exercise', function(req, res) {
 app.get('/stats', function(req, res) {
     res.sendFile(__dirname + '/public/stats.html');
 });
+
+require("./routes/apiroutes")(app);
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
